@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+import { Epilogue } from "next/font/google";
+import Sidebar from "@/components/layouts/Sidebar";
+import Header from "@/components/layouts/Header";
+// import localFont from "next/font/local";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+// const geistMono = localFont({
+//   src: "./fonts/GeistMonoVF.woff",
+//   variable: "--font-geist-mono",
+//   weight: "100 900",
+// });
+
+const epilogue = Epilogue({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,15 +25,29 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={epilogue.className}>
+        <main>
+          <div className="border-t">
+            <div className="bg-background">
+              <div className="flex flex-row">
+                <div className="hidden lg:block w-[18%]">
+                  <Sidebar />
+                </div>
+                <div className="col-span-3 overflow-auto lg:col-span-5 lg:border-l w-[82%]">
+                  <div className="px-6 py-6 lg:px-8">
+                    <Header />
+                    {children}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
       </body>
     </html>
   );
