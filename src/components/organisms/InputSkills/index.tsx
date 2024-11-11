@@ -29,12 +29,14 @@ const InputSkills: FC<InputSkillsProps> = ({ form }) => {
       return;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newValue: any = [...values, value];
     setValues(newValue);
     form.setValue("requiredSkills", newValue);
   };
 
   const handleDeleteValue = (item: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const skills: any = values.filter((value: string) => item !== value);
     setValues(skills);
     form.setValue("requiredSkills", skills);
@@ -45,9 +47,11 @@ const InputSkills: FC<InputSkillsProps> = ({ form }) => {
       name={"requiredSkills"}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="block">Add Skill</FormLabel>
+          <FormLabel htmlFor="skill-input" className="block">
+            Add Skill
+          </FormLabel>
           <FormControl>
-            <>
+            <div>
               <Button
                 type="button"
                 variant="outline"
@@ -59,7 +63,11 @@ const InputSkills: FC<InputSkillsProps> = ({ form }) => {
               </Button>
               {isHide && (
                 <div className="my-4 flex flex-row gap-4">
-                  <Input ref={inputRef} className="w-[246px]" />
+                  <Input
+                    ref={inputRef}
+                    id="skill-input"
+                    className="w-[246px]"
+                  />
                   <Button type="button" onClick={handleSaveValue}>
                     Save
                   </Button>
@@ -92,7 +100,7 @@ const InputSkills: FC<InputSkillsProps> = ({ form }) => {
                   );
                 })}
               </div>
-            </>
+            </div>
           </FormControl>
           <FormMessage />
         </FormItem>
