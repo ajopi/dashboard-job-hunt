@@ -12,21 +12,21 @@ export const jobFormSchema = z.object({
     required_error: "Category field is must be selected!",
   }),
   requiredSkills: z
-    .string()
+    .string({ required_error: "At least 1 skill must be selected" })
     .array()
     .nonempty({ message: "Required skill must be filled, at least 1 skill" }),
   jobDescription: z
     .string({ required_error: "Job description is required" })
     .min(10, { message: "Job description must be at least 10 character" }),
   responsibility: z
-    .string({ required_error: "Job description is required" })
-    .min(10, { message: "Job description must be at least 10 character" }),
+    .string({ required_error: "Job responsibility is required" })
+    .min(10, { message: "Job Responsibility must be at least 10 character" }),
   whoYouAre: z
-    .string({ required_error: "Job description is required" })
-    .min(10, { message: "Job description must be at least 10 character" }),
+    .string({ required_error: "Who You Are section is required" })
+    .min(10, { message: "Who You Are section must be at least 10 character" }),
   niceToHave: z
-    .string({ required_error: "Job description is required" })
-    .min(10, { message: "Job description must be at least 10 character" }),
+    .string({ required_error: "Nice To Have section is required" })
+    .min(10, { message: "Nice to Have section must be at least 10 character" }),
   benefits: z
     .object({
       benefit: z.string(),
