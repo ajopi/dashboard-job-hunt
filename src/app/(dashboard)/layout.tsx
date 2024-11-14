@@ -1,20 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { Epilogue } from "next/font/google";
 import Sidebar from "@/components/layouts/Sidebar";
 import Header from "@/components/layouts/Header";
-// import localFont from "next/font/local";
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
 
 const epilogue = Epilogue({ subsets: ["latin"] });
 

@@ -1,8 +1,11 @@
 "use client";
 
 import TitleForm from "@/components/atoms/TitleForm";
+import CKEditor from "@/components/organisms/CKEditor";
 import CustomUpload from "@/components/organisms/CustomUpload";
 import FieldInput from "@/components/organisms/FieldInput";
+import InputSkills from "@/components/organisms/InputSkills";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -23,13 +26,19 @@ import { Separator } from "@/components/ui/separator";
 import { LOCATION_OPTIONS, optionType } from "@/constants";
 import { overviewFormSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 interface OverviewFormProps {}
 
 const OverviewForm: FC<OverviewFormProps> = ({}) => {
+  const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
+
+  useEffect(() => {
+    setEditorLoaded(true);
+  }, []);
+
   const form = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
   });
@@ -124,8 +133,29 @@ const OverviewForm: FC<OverviewFormProps> = ({}) => {
                   </FormItem>
                 )}
               />
+              <InputSkills
+                form={form}
+                name="techStack"
+                label="Add Tech Stack"
+              />
             </div>
           </FieldInput>
+
+          <FieldInput
+            title="About Company"
+            subtitle="Brief description for your company. URLs are hyperlinked."
+          >
+            <CKEditor
+              form={form}
+              name="description"
+              editorLoaded={editorLoaded}
+            />
+          </FieldInput>
+          <div className="flex justify-end">
+            <Button size={"lg"} className="justify-end">
+              Save Changes
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

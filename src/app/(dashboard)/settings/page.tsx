@@ -1,4 +1,6 @@
 import OverviewForm from "@/components/forms/OverviewForm";
+import SocialMediaForm from "@/components/forms/SocialMediaForm";
+import TeamForm from "@/components/forms/TeamForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { FC } from "react";
 
@@ -19,21 +21,11 @@ const SettingsPage: FC<SettingsPageProps> = ({}) => {
         </TabsContent>
 
         <TabsContent value="socialLinks">
-          <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-            incidunt repellat eos voluptas porro saepe ab magni dignissimos,
-            ratione non optio enim nobis autem. Quae dicta molestiae animi quod
-            soluta?
-          </div>
+          <SocialMediaForm />
         </TabsContent>
 
         <TabsContent value="teams">
-          <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-            incidunt repellat eos voluptas porro saepe ab magni dignissimos,
-            ratione non optio enim nobis autem. Quae dicta molestiae animi quod
-            soluta?
-          </div>
+          <TeamForm />
         </TabsContent>
       </Tabs>
     </div>
