@@ -10,6 +10,7 @@ import { CiCalendarDate, CiLogout } from "react-icons/ci";
 import { GoGear } from "react-icons/go";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 interface SidebarProps {}
 
@@ -84,6 +85,7 @@ const Sidebar: FC<SidebarProps> = ({}) => {
           <Button
             variant={"ghost"}
             className="w-full justify-start rounded-none hover:text-red-500 hover:bg-red-200 text-red-500"
+            onClick={() => signOut()}
           >
             <CiLogout className="mr-2 text-lg " />
             Logout

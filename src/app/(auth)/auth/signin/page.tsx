@@ -14,17 +14,39 @@ import Link from "next/link";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { signIn } from "next-auth/react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 interface SignInPageProps {}
 
 const SignInPage: FC<SignInPageProps> = ({}) => {
   const form = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
-  const onSubmit = (val: z.infer<typeof signInFormSchema>) => {
-    console.log(val);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const onSubmit = async (val: z.infer<typeof signInFormSchema>) => {
+    const authenticated = await signIn("credentials", {
+      ...val,
+      redirect: false,
+    });
+
+    if (authenticated?.error) {
+      toast({
+        title: "Error",
+        description: "Email or Password maybe Wrong",
+      });
+      return;
+    }
+    router.push("/");
   };
+
   return (
     <div className="relative w-full h-screen">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
