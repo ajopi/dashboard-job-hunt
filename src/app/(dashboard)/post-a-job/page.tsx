@@ -30,10 +30,18 @@ import { ArrowLeftIcon } from "lucide-react";
 import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
 
 interface PostJobPageProps {}
 
 const PostJobPage: FC<PostJobPageProps> = ({}) => {
+  const { data, error, isLoading } = useSWR<CategoryJob[]>(
+    "/api/job/categories",
+    fetcher
+  );
+  console.log(data);
+
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
   const form = useForm<z.infer<typeof jobFormSchema>>({
     resolver: zodResolver(jobFormSchema),
@@ -188,13 +196,13 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="m@example.com">
-                        m@example.com
-                      </SelectItem>
-                      <SelectItem value="m@google.com">m@google.com</SelectItem>
-                      <SelectItem value="m@support.com">
-                        m@support.com
-                      </SelectItem>
+                      {data?.map((item: any) => {
+                        return (
+                          <SelectItem key={item.id} value={item.id}>
+                            {item.name}
+                          </SelectItem>
+                        );
+                      })}
                     </SelectContent>
                   </Select>
                   <FormMessage />
