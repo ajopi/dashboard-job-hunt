@@ -14,7 +14,7 @@ export const jobFormSchema = z.object({
     required_error: "Category field is must be selected!",
   }),
   requiredSkills: z
-    .string({ required_error: "At least 1 skill must be selected" })
+    .string()
     .array()
     .nonempty({ message: "Required skill must be filled, at least 1 skill" }),
   jobDescription: z

@@ -1,8 +1,6 @@
-import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -10,18 +8,17 @@ import {
 } from "@/components/ui/table";
 import {
   JOB_APPLICANT_COLUMNS,
-  JOB_APPLICANT_DATA,
-  JOB_LISTING_DATA,
 } from "@/constants";
 import React, { FC } from "react";
 import ButtonActionTable from "../ButtonActionTable";
 
-interface ApplicantsPageProps {}
+interface ApplicantsPageProps {
+  applicants: any;
+}
 
-const ApplicantsPage: FC<ApplicantsPageProps> = ({}) => {
+const ApplicantsPage: FC<ApplicantsPageProps> = ({ applicants }) => {
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
           {JOB_APPLICANT_COLUMNS.map((items: string, i: number) => {
@@ -31,17 +28,17 @@ const ApplicantsPage: FC<ApplicantsPageProps> = ({}) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {JOB_APPLICANT_DATA.map((item: any, index: number) => {
-          return (
-            <TableRow key={item.name + index}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.appliedDate}</TableCell>
-              <TableCell>
-                <ButtonActionTable url="" />
-              </TableCell>
-            </TableRow>
-          );
-        })}
+        {applicants &&
+          applicants.map((item: any, index: number) => {
+            return (
+              <TableRow key={item.id + index}>
+                <TableCell>{item.user.name}</TableCell>
+                <TableCell>
+                  <ButtonActionTable url="" />
+                </TableCell>
+              </TableRow>
+            );
+          })}
       </TableBody>
     </Table>
   );

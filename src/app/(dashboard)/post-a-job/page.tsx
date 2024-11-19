@@ -34,7 +34,7 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import moment from "moment";
-import { CategoryJob, Job } from "@prisma/client";
+import { CategoryJob } from "@prisma/client";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -43,7 +43,6 @@ interface PostJobPageProps {}
 const PostJobPage: FC<PostJobPageProps> = ({}) => {
   // Fetching data untuk job categories
   const { data } = useSWR<CategoryJob[]>("/api/job/categories", fetcher);
-  console.log(data);
 
   const { data: session } = useSession();
   const { toast } = useToast();
@@ -65,6 +64,7 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
       requiredSkills: [],
     },
   });
+  console.log(form.formState.isValid);
 
   const onSubmit = async (val: z.infer<typeof jobFormSchema>) => {
     try {
@@ -264,7 +264,7 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
             title="Required Skills"
             subtitle="Add required skills for the job"
           >
-            <InputSkills form={form} name="requiredSkill" label="Add Skills" />
+            <InputSkills form={form} name="requiredSkills" label="Add Skills" />
           </FieldInput>
 
           <FieldInput
